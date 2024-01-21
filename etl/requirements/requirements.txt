@@ -1,0 +1,12 @@
+black
+fastparquet
+flake8
+isort
+pandas
+psycopg2-binary
+pyarrow
+pyright
+pytest-mock
+python-dotenv
+snakeviz
+sqlalchemy

@@ -1,4 +1,7 @@
-.python-version
-solution.ipynb
+cache
 data/raw.csv
 .ipynb_checkpoints
+*.pstats
+*.pyc
+.python-version
+solution.ipynb
