@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  pipeline:
+    build:
+      context: ..
+      dockerfile: pipeline/docker/Dockerfile
+    command: sleep infinity
+    container_name: machina-pipeline
+    env_file: ../env/local.env
+    networks:
+      machina:
+        aliases:
+          - machina-pipeline
+    ports:
+      - '8080:8080' # snakeviz
+    volumes:
+      - ../../cache:/cache
+      - ../../data:/data
+      - ../lib:/app/lib
+      - ../reader:/app/reader
+      - ../requirements:/app/requirements
+      - ../pipeline:/app/pipeline
+  postgres:
+    build:
+      context: ..
+      dockerfile: db/docker/Dockerfile
+    container_name: machina-db
+    env_file: ../env/local.env
+    networks:
+      machina:
+        aliases:
+          - machina-db
+    ports:
+      - '5432:5432'
+    restart: unless-stopped
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ../db/initdb.d:/docker-entrypoint-initdb.d
+networks:
+  machina:
+    driver: bridge
+volumes:
+  postgres-data:
+    driver_opts:
+      type: tmpfs
+      device: tmpfs

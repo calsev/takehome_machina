@@ -1,0 +1,11 @@
+[tool.isort]
+profile = "black"
+skip_glob = ".venv"
+
+[tool.black]
+extend-exclude = '''
+(
+  .venv
+)
+'''
+target-version = ["py311"]
